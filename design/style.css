@@ -1,13 +1,12 @@
-
 :root {
-  --plum: #5F4B8B;          /* Pantone 18-3838 Ultra Violet - header/footer/accents */
-  --plum-dark: #453569;     /* darker Ultra Violet for hover/gradient depth */
-  --lavender: #8A7AB0;      /* mid desaturated lavender - section backgrounds */
-  --lavender-light: #C7BEDD;/* light desaturated lavender - card backgrounds */
-  --burnt-orange: #C1440E;  /* Pantone 18-1249 Hawaiian Sunset - buttons, links, highlights */
+  --plum: #5F4B8B;          
+  --plum-dark: #453569;    
+  --lavender: #8A7AB0;     
+  --lavender-light: #C7BEDD;
+  --burnt-orange: #C1440E; 
   --burnt-orange-dark: #8F330A;
-  --cream: #FBF8F5;         /* soft off-white background */
-  --black: #1A1414;         /* near-black text, warmer than pure black */
+  --cream: #FBF8F5;         
+  --black: #1A1414;        
   --border: #2E1F35;
 
   --font-serif: Georgia, 'Times New Roman', Cambria, serif;
@@ -85,12 +84,12 @@ nav a.active,
   font-weight: bold;
 }
 
-/* ---------- Page wrapper  ---------- */
+/* ---------- Page wrapper ---------- */
 .mainContainer {
   background-color: var(--cream);
-  max-width: 900px;
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 20px 30px 60px;
+  padding: 20px 32px 60px;
 }
 
 .mainContainer > p {
@@ -103,13 +102,11 @@ nav a.active,
   font-weight: bold;
 }
 
-/* ---------- Banner section ---------- */
+/* ---------- banner ---------- */
 .hero,
 .banner,
 .header {
-  background:
-    url('/media/hero-art.png') center/cover no-repeat,
-    linear-gradient(135deg, var(--plum) 0%, var(--plum-dark) 100%);
+  background: linear-gradient(135deg, var(--plum) 0%, var(--plum-dark) 100%);
   color: var(--cream);
   text-align: center;
   padding: 60px 20px;
@@ -119,9 +116,8 @@ nav a.active,
 .banner h1,
 .header h1 {
   color: var(--black);
-  font-size: 3rem;
+  font-size: 4.5rem;
   display: inline-block;
-  border: 2px solid var(--black);
   padding: 20px 50px;
   background-color: rgba(251, 248, 245, 0.55);
 }
@@ -144,7 +140,7 @@ nav a.active,
   font-size: 1.1rem;
 }
 
-/* ---------- Publication grid ---------- */
+/* ---------- Publications grid ---------- */
 .publications-grid,
 .card-grid {
   background-color: var(--plum);
@@ -221,7 +217,7 @@ main p {
   font-size: 1.05rem;
 }
 
-/* ---------- Reports page  ---------- */
+/* ---------- Reports listing page (no embedded PDF) ---------- */
 #reports {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -229,14 +225,24 @@ main p {
   padding: 20px 0 60px;
 }
 
-.report-card {
+.report-summary-card {
+  display: block;
+  text-decoration: none;
+  color: var(--black);
   background-color: var(--lavender-light);
   border: 1px solid var(--plum);
   border-radius: 6px;
   padding: 20px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-.report-card h3 {
+.report-summary-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+  text-decoration: none;
+}
+
+.report-summary-card h3 {
   color: var(--plum);
   font-size: 1.4rem;
   margin: 0 0 6px;
@@ -244,21 +250,69 @@ main p {
   padding-bottom: 8px;
 }
 
-.report-card .report-date {
+.report-summary-card .report-date {
   color: var(--burnt-orange);
   font-style: italic;
   font-size: 0.9rem;
+  margin: 0 0 4px;
+}
+
+.report-summary-card .report-authors {
+  font-size: 0.9rem;
+  margin: 0 0 8px;
+}
+
+.report-summary-card .report-tags {
+  margin: 6px 0;
+}
+
+.report-summary-card .report-summary {
+  font-size: 1rem;
+  margin: 8px 0 0;
+}
+
+/* ---------- Individual report detail page ---------- */
+.report-detail {
+  padding: 20px 0 60px;
+}
+
+.report-detail .back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.report-detail h1 {
+  color: var(--plum);
+  font-size: 2.4rem;
   margin: 0 0 10px;
 }
 
-.report-card .report-summary {
-  font-size: 1rem;
-  margin: 0 0 14px;
+.report-detail .report-meta {
+  margin-bottom: 16px;
 }
 
-.report-card embed {
+.report-detail .report-date {
+  color: var(--burnt-orange);
+  font-style: italic;
+  margin: 0 0 4px;
+}
+
+.report-detail .report-authors {
+  margin: 0 0 8px;
+}
+
+.report-detail .report-summary {
+  font-size: 1.15rem;
+  max-width: 800px;
+  margin: 0 0 30px;
+}
+
+.report-detail embed {
+  width: 100%;
+  height: 80vh;
   border: 1px solid var(--plum);
-  border-radius: 4px;
+  border-radius: 6px;
 }
 
 /* ---------- Footer ---------- */
@@ -268,126 +322,4 @@ footer {
   text-align: center;
   padding: 20px;
   font-style: italic;
-}
-
-/* ---------- Homepage preview grid ("Latest Publications") ---------- */
-.reports-preview-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  padding: 20px 0;
-}
-
-.preview-card {
-  display: block;
-  text-decoration: none;
-  color: var(--black);
-  text-align: center;
-}
-
-.preview-card .preview-thumb {
-  background-color: var(--lavender-light);
-  aspect-ratio: 1 / 1;
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-
-.preview-card .preview-thumb .plus {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--cream);
-  color: var(--plum);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.preview-card h4 {
-  margin: 4px 0;
-  font-size: 1.05rem;
-  color: var(--plum);
-}
-
-.preview-card .preview-tags {
-  font-size: 0.85rem;
-  color: var(--burnt-orange);
-}
-
-.see-more-wrap {
-  text-align: right;
-  margin: -10px 0 30px;
-}
-
-.see-more-link {
-  font-weight: bold;
-}
-
-/* ---------- FAQ section ---------- */
-.faq-section {
-  padding: 20px 0 50px;
-}
-
-.faq-section h2 {
-  color: var(--plum);
-  border-bottom: 2px solid var(--burnt-orange);
-  display: inline-block;
-  padding-bottom: 4px;
-  margin-bottom: 20px;
-}
-
-.faq-item {
-  margin-bottom: 16px;
-}
-
-.faq-question {
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.faq-answer {
-  margin: 0;
-}
-
-/* ---------- Tags on report cards ---------- */
-.report-tags {
-  margin: 6px 0;
-}
-
-.tag-pill {
-  display: inline-block;
-  background-color: var(--burnt-orange);
-  color: var(--cream);
-  font-size: 0.75rem;
-  padding: 2px 10px;
-  border-radius: 12px;
-  margin-right: 6px;
-}
-
-.report-authors {
-  font-size: 0.9rem;
-  margin: 0 0 8px;
-}
-
-/* ---------- Contact page ---------- */
-.contact-links {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0 60px;
-  flex-wrap: wrap;
-}
-
-.contact-links a {
-  background-color: var(--burnt-orange);
-  color: var(--cream);
-  padding: 10px 20px;
-  border-radius: 4px;
-}
-
-.contact-links a:hover {
-  background-color: var(--burnt-orange-dark);
-  color: var(--cream);
 }
