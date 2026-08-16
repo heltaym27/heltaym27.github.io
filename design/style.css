@@ -1,17 +1,26 @@
+/* ============================================
+   COGNATE — DESIGN OVERRIDE STYLESHEET
+   Lavender / Plum Purple + Burnt Orange + Black Serif
+   Drop this file in a "design" folder and link it
+   AFTER your existing CSS files so it overrides them:
+   <link rel="stylesheet" href="../design/style.css">
+   ============================================ */
+
 :root {
-  --plum: #5F4B8B;
-  --plum-dark: #453569;
-  --lavender: #8A7AB0;
-  --lavender-light: #C7BEDD;
-  --burnt-orange: #C1440E;
+  --plum: #5F4B8B;          /* Pantone 18-3838 Ultra Violet - header/footer/accents */
+  --plum-dark: #453569;     /* darker Ultra Violet for hover/gradient depth */
+  --lavender: #8A7AB0;      /* mid desaturated lavender - section backgrounds */
+  --lavender-light: #C7BEDD;/* light desaturated lavender - card backgrounds */
+  --burnt-orange: #C1440E;  /* Pantone 18-1249 Hawaiian Sunset - buttons, links, highlights */
   --burnt-orange-dark: #8F330A;
-  --cream: #FBF8F5;
-  --black: #1A1414;
+  --cream: #FBF8F5;         /* soft off-white background */
+  --black: #1A1414;         /* near-black text, warmer than pure black */
   --border: #2E1F35;
 
   --font-serif: Georgia, 'Times New Roman', Cambria, serif;
 }
 
+/* ---------- Global reset ---------- */
 * {
   box-sizing: border-box;
 }
@@ -83,7 +92,7 @@ nav a.active,
   font-weight: bold;
 }
 
-/* ---------- Page wrapper ---------- */
+/* ---------- Page wrapper (matches your actual class name) ---------- */
 .mainContainer {
   background-color: var(--cream);
   max-width: 1400px;
@@ -132,7 +141,17 @@ nav a.active,
   background-color: rgba(251, 248, 245, 0.55);
 }
 
-/* ---------- Section bands ---------- */
+/* ---------- Page title (e.g. "Publications") ---------- */
+.page-title {
+  text-align: center;
+  color: var(--burnt-orange);
+  font-size: 2.5rem;
+  font-style: italic;
+  padding: 40px 0;
+  background-color: var(--cream);
+}
+
+/* ---------- Section bands (e.g. "Latest Publications") ---------- */
 .section-band {
   background-color: var(--lavender);
   color: var(--cream);
@@ -140,126 +159,55 @@ nav a.active,
   font-size: 1.1rem;
 }
 
-/* ---------- Homepage preview grid ---------- */
-.reports-preview-grid {
+/* ---------- Publication / card grid ---------- */
+.publications-grid,
+.card-grid {
+  background-color: var(--plum);
+  padding: 40px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
-  padding: 20px 0;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
 }
 
-.preview-card {
-  display: block;
-  text-decoration: none;
-  color: var(--black);
+.publication-card,
+.card {
   text-align: center;
 }
 
-.preview-card .preview-thumb {
+.publication-card .thumb,
+.card .thumb {
   background-color: var(--lavender-light);
   aspect-ratio: 1 / 1;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
-.preview-card .preview-thumb .plus {
-  width: 32px;
-  height: 32px;
+.publication-card .thumb .plus,
+.card .thumb .plus {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   background-color: var(--cream);
   color: var(--plum);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
 }
 
-.preview-card h4 {
-  margin: 4px 0;
-  font-size: 1.05rem;
-  color: var(--plum);
+.publication-card .caption,
+.card .caption {
+  color: var(--cream);
+  font-size: 0.95rem;
 }
 
-.preview-card .preview-tags {
+.publication-card .tags,
+.card .tags {
+  color: var(--lavender-light);
   font-size: 0.85rem;
-  color: var(--burnt-orange);
-}
-
-.see-more-wrap {
-  text-align: right;
-  margin: -10px 0 30px;
-}
-
-.see-more-link {
-  font-weight: bold;
-}
-
-/* ---------- FAQ section ---------- */
-.faq-section {
-  padding: 20px 0 50px;
-}
-
-.faq-section h2 {
-  color: var(--plum);
-  border-bottom: 2px solid var(--burnt-orange);
-  display: inline-block;
-  padding-bottom: 4px;
-  margin-bottom: 20px;
-}
-
-.faq-item {
-  margin-bottom: 16px;
-}
-
-.faq-question {
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.faq-answer {
-  margin: 0;
-}
-
-/* ---------- Tag pills ---------- */
-.report-tags {
-  margin: 6px 0;
-}
-
-.tag-pill {
-  display: inline-block;
-  background-color: var(--burnt-orange);
-  color: var(--cream);
-  font-size: 0.75rem;
-  padding: 2px 10px;
-  border-radius: 12px;
-  margin-right: 6px;
-}
-
-.report-authors {
-  font-size: 0.9rem;
-  margin: 0 0 8px;
-}
-
-/* ---------- Contact page ---------- */
-.contact-links {
-  display: flex;
-  gap: 20px;
-  padding: 20px 0 60px;
-  flex-wrap: wrap;
-}
-
-.contact-links a {
-  background-color: var(--burnt-orange);
-  color: var(--cream);
-  padding: 10px 20px;
-  border-radius: 4px;
-}
-
-.contact-links a:hover {
-  background-color: var(--burnt-orange-dark);
-  color: var(--cream);
 }
 
 /* ---------- Buttons ---------- */
@@ -288,7 +236,7 @@ main p {
   font-size: 1.05rem;
 }
 
-/* ---------- Reports listing page ---------- */
+/* ---------- Reports listing page (summary cards, no embedded PDF) ---------- */
 #reports {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
