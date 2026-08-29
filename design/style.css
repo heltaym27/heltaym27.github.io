@@ -484,10 +484,31 @@ main p {
 }
 
 /* ---------- Footer ---------- */
-footer {
-  background-color: var(--lavender-light);
-  color: var(--black);
+footer,
+.site-footer {
+  background-color: var(--plum-dark);
+  color: var(--cream);
   text-align: center;
-  padding: 20px;
+  padding: 30px 20px;
+}
+
+.site-footer p {
+  color: var(--cream);
+  margin: 0 0 10px;
   font-style: italic;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer-links a {
+  color: var(--cream);
+  font-weight: bold;
+}
+
+.footer-links a:hover {
+  color: var(--burnt-orange);
 }
