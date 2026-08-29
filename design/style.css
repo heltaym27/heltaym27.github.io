@@ -51,7 +51,6 @@ a:hover {
 }
 
 /* ---------- Top navbar ---------- */
-nav,
 .navbar,
 header.site-header {
   background-color: var(--plum-dark);
@@ -62,7 +61,6 @@ header.site-header {
   align-items: center;
 }
 
-nav .logo,
 .navbar .logo {
   font-size: 1.4rem;
   font-weight: bold;
@@ -70,12 +68,11 @@ nav .logo,
 }
 
 .navbar .logo img {
-  height: 180px;
+  height: 120px;
   width: auto;
   display: block;
 }
 
-nav ul,
 .navbar ul {
   list-style: none;
   display: flex;
@@ -84,15 +81,12 @@ nav ul,
   padding: 0;
 }
 
-nav a,
 .navbar a {
   color: var(--cream);
   font-weight: normal;
 }
 
-nav a:hover,
 .navbar a:hover,
-nav a.active,
 .navbar a.active {
   color: var(--burnt-orange);
   font-weight: bold;
