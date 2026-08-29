@@ -56,14 +56,21 @@ nav,
 header.site-header {
   background-color: var(--plum-dark);
   border-bottom: 1px solid var(--border);
-  padding: 16px 32px;
+  padding: 6px 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+nav .logo,
+.navbar .logo {
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: var(--cream);
+}
+
 .navbar .logo img {
-  height: 68px;
+  height: 120px;
   width: auto;
   display: block;
 }
