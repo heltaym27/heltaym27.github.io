@@ -94,33 +94,99 @@ function renderSummaryCard(container, report) {
   card.className = 'report-summary-card';
   card.href = `/html/report.html?id=${encodeURIComponent(report.name)}`;
   card.innerHTML = `
-    <h3>${report.title}</h3>
-    ${report.date ? `<p class="report-date">${report.date}</p>` : ''}
-    ${report.authors ? `<p class="report-authors">By ${report.authors}</p>` : ''}
-    ${tagPills(report.tags)}
-    ${report.summary ? `<p class="report-summary">${report.summary}</p>` : ''}
+    <div class="report-summary-thumb">${generateCoverArt(report)}</div>
+    <div class="report-summary-body">
+      <h3>${report.title}</h3>
+      ${report.date ? `<p class="report-date">${report.date}</p>` : ''}
+      ${report.authors ? `<p class="report-authors">By ${report.authors}</p>` : ''}
+      ${tagPills(report.tags)}
+      ${report.summary ? `<p class="report-summary">${report.summary}</p>` : ''}
+    </div>
   `;
   container.appendChild(card);
 }
 
-// Homepage "Latest Publications" preview card — same destination
-// Small reusable neuron icon shown on preview cards instead of a plain placeholder
-const PREVIEW_ICON_SVG = `<svg class="preview-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <circle cx="50" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="4"/>
-  <path d="M50 34 L50 14 M50 14 L42 22 M50 14 L58 22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  <path d="M64 40 L82 28 M82 28 L74 28 M82 28 L80 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  <path d="M64 60 L82 72 M82 72 L74 72 M82 72 L80 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  <path d="M50 66 L50 86 M50 86 L42 78 M50 86 L58 78" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  <path d="M36 40 L18 28 M18 28 L26 28 M18 28 L20 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-  <path d="M36 60 L18 72 M18 72 L26 72 M18 72 L20 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-</svg>`;
+// ---- Generated cover art ----
+// Each report gets a unique abstract "cover" instead of a stock image, so your
+// editor never has to source or upload a picture per report. The pattern is
+// deterministic per report (same title always produces the same art) and
+// color-coded by its first tag, so it's visually tied to the topic.
+function hashString(str) {
+  let h = 0;
+  for (let i = 0; i < str.length; i++) {
+    h = (Math.imul(31, h) + str.charCodeAt(i)) | 0;
+  }
+  return h >>> 0;
+}
+
+function mulberry32(seed) {
+  return function() {
+    seed |= 0;
+    seed = (seed + 0x6D2B79F5) | 0;
+    let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+const TAG_COLOR_MAP = {
+  psychology: '#5F4B8B',
+  neuroscience: '#C1440E',
+  forensics: '#8A7AB0',
+};
+const FALLBACK_COLORS = ['#5F4B8B', '#C1440E', '#8A7AB0', '#453569'];
+
+function colorForReport(report) {
+  const firstTag = (report.tags || '').split(',')[0].trim().toLowerCase();  if (TAG_COLOR_MAP[firstTag]) return TAG_COLOR_MAP[firstTag];
+  const seed = hashString(report.title || report.name);
+  return FALLBACK_COLORS[seed % FALLBACK_COLORS.length];
+}
+
+function generateCoverArt(report) {
+  const seed = hashString(report.title || report.name);
+  const rand = mulberry32(seed);
+  const color = colorForReport(report);
+  const W = 320, H = 200;
+  const paths = [];
+
+  function branch(x, y, angle, length, depth) {
+    if (depth <= 0 || length < 10) return;
+    const x2 = x + length * Math.cos(angle);
+    const y2 = y + length * Math.sin(angle);
+    const cx = x + (length * 0.5) * Math.cos(angle + (rand() - 0.5) * 0.4);
+    const cy = y + (length * 0.5) * Math.sin(angle + (rand() - 0.5) * 0.4);
+    const w = Math.max(1.2, depth * 1.3);
+    paths.push(`<path d="M ${x.toFixed(1)} ${y.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}" stroke="white" stroke-width="${w}" fill="none" stroke-linecap="round" opacity="0.55"/>`);
+    const branches = depth > 1 ? (rand() < 0.5 ? 2 : 3) : 1;
+    for (let i = 0; i < branches; i++) {
+      const da = (rand() * 0.7 + 0.3) * (rand() < 0.5 ? -1 : 1);
+      branch(x2, y2, angle + da, length * (0.6 + rand() * 0.2), depth - 1);
+    }
+  }
+
+  const centers = 2 + Math.floor(rand() * 2);
+  for (let i = 0; i < centers; i++) {
+    const cx = 40 + rand() * (W - 80);
+    const cy = 30 + rand() * (H - 60);
+    const nBranches = 4 + Math.floor(rand() * 3);
+    for (let b = 0; b < nBranches; b++) {
+      const a = (2 * Math.PI / nBranches) * b + rand() * 0.5;
+      branch(cx, cy, a, 22 + rand() * 20, 3);
+    }
+  }
+
+  return `<svg class="cover-art" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+    <rect width="${W}" height="${H}" fill="${color}"/>
+    ${paths.join('\n')}
+  </svg>`;
+}
 
 function renderPreviewCard(container, report) {
   const card = document.createElement('a');
   card.className = 'preview-card';
   card.href = `/html/report.html?id=${encodeURIComponent(report.name)}`;
   card.innerHTML = `
-    <div class="preview-thumb">${PREVIEW_ICON_SVG}</div>
+    <div class="preview-thumb">${generateCoverArt(report)}</div>
     <h4>${report.title}</h4>
     ${report.tags ? `<p class="preview-tags">${report.tags}</p>` : ''}
     ${report.summary ? `<p class="preview-summary">${report.summary}</p>` : ''}
