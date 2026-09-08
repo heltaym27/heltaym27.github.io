@@ -162,8 +162,8 @@ header.site-header {
 /* ---------- Homepage "Latest Publications" preview grid ---------- */
 .reports-preview-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 24px;
   padding: 20px 0;
 }
 
@@ -171,39 +171,50 @@ header.site-header {
   display: block;
   text-decoration: none;
   color: var(--black);
-  text-align: center;
+  text-align: left;
+  background-color: var(--cream);
+  border: 1px solid var(--lavender-light);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.preview-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+  text-decoration: none;
 }
 
 .preview-card .preview-thumb {
-  background-color: var(--lavender-light);
-  aspect-ratio: 1 / 1;
-  border-radius: 4px;
+  background: linear-gradient(135deg, var(--lavender-light) 0%, var(--lavender) 100%);
+  aspect-ratio: 16 / 10;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 8px;
 }
 
-.preview-card .preview-thumb .plus {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: var(--cream);
+.preview-card .preview-icon {
+  width: 56px;
+  height: 56px;
   color: var(--plum);
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .preview-card h4 {
-  margin: 4px 0;
-  font-size: 1.05rem;
+  margin: 14px 16px 4px;
+  font-size: 1.1rem;
   color: var(--plum);
 }
 
 .preview-card .preview-tags {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--burnt-orange);
+  margin: 0 16px 8px;
+}
+
+.preview-card .preview-summary {
+  font-size: 0.95rem;
+  margin: 0 16px 16px;
+  line-height: 1.5;
 }
 
 .see-more-wrap {
@@ -212,7 +223,18 @@ header.site-header {
 }
 
 .see-more-link {
+  display: inline-block;
   font-weight: bold;
+  background-color: var(--burnt-orange);
+  color: var(--cream);
+  padding: 10px 24px;
+  border-radius: 999px;
+}
+
+.see-more-link:hover {
+  background-color: var(--burnt-orange-dark);
+  color: var(--cream);
+  text-decoration: none;
 }
 
 /* ---------- FAQ section (accordion) ---------- */
@@ -241,11 +263,11 @@ header.site-header {
   padding: 4px 0;
 }
 
-.faq-question::-webkit-details-marker {  display: none;
+.faq-question::-webkit-details-marker {
+  display: none;
 }
 
-.faq-question::before {
-  content: "+ ";
+.faq-question::before {  content: "+ ";
   color: var(--burnt-orange);
   font-weight: bold;
 }
@@ -488,21 +510,3 @@ footer,
 
 .site-footer p {
   color: var(--cream);
-  margin: 0 0 10px;
-  font-style: italic;
-}
-
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 24px;
-}
-
-.footer-links a {
-  color: var(--cream);
-  font-weight: bold;
-}
-
-.footer-links a:hover {
-  color: var(--burnt-orange);
-}
