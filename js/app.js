@@ -104,14 +104,26 @@ function renderSummaryCard(container, report) {
 }
 
 // Homepage "Latest Publications" preview card — same destination
+// Small reusable neuron icon shown on preview cards instead of a plain placeholder
+const PREVIEW_ICON_SVG = `<svg class="preview-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="50" cy="50" r="16" fill="none" stroke="currentColor" stroke-width="4"/>
+  <path d="M50 34 L50 14 M50 14 L42 22 M50 14 L58 22" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M64 40 L82 28 M82 28 L74 28 M82 28 L80 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M64 60 L82 72 M82 72 L74 72 M82 72 L80 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 66 L50 86 M50 86 L42 78 M50 86 L58 78" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M36 40 L18 28 M18 28 L26 28 M18 28 L20 36" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M36 60 L18 72 M18 72 L26 72 M18 72 L20 64" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>`;
+
 function renderPreviewCard(container, report) {
   const card = document.createElement('a');
   card.className = 'preview-card';
   card.href = `/html/report.html?id=${encodeURIComponent(report.name)}`;
   card.innerHTML = `
-    <div class="preview-thumb"><span class="plus">+</span></div>
+    <div class="preview-thumb">${PREVIEW_ICON_SVG}</div>
     <h4>${report.title}</h4>
     ${report.tags ? `<p class="preview-tags">${report.tags}</p>` : ''}
+    ${report.summary ? `<p class="preview-summary">${report.summary}</p>` : ''}
   `;
   container.appendChild(card);
 }
