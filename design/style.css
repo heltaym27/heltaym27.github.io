@@ -305,7 +305,7 @@ header.site-header {
 .contact-links {
   display: flex;
   gap: 20px;
-  padding: 20px 0 60px;
+  padding: 20px 0 40px;
   flex-wrap: wrap;
 }
 
@@ -321,55 +321,80 @@ header.site-header {
   color: var(--cream);
 }
 
-/* ---------- Publication / card grid ---------- */
-.publications-grid,
-.card-grid {
-  background-color: var(--plum);
-  padding: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 24px;
+/* ---------- Social icon buttons ---------- */
+.social-icons {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0 40px;
 }
 
-.publication-card,
-.card {
-  text-align: center;
-}
-
-.publication-card .thumb,
-.card .thumb {
-  background-color: var(--lavender-light);
-  aspect-ratio: 1 / 1;
-  border-radius: 4px;
+.social-icons a {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
-}
-
-.publication-card .thumb .plus,
-.card .thumb .plus {
-  width: 36px;
-  height: 36px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  background-color: var(--cream);
-  color: var(--plum);
+  background-color: var(--plum);
+  color: var(--cream);
+  font-weight: bold;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.social-icons a:hover {
+  background-color: var(--burnt-orange);
+  color: var(--cream);
+  text-decoration: none;
+  transform: translateY(-3px);
+}
+
+/* ---------- Meet the Founder ---------- */
+.founder-card {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  background-color: var(--lavender-light);
+  border: 1px solid var(--plum);
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 600px;
+  margin: 20px 0 40px;
+}
+
+.founder-avatar {
+  flex-shrink: 0;
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  background-color: var(--plum);
+  color: var(--cream);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
-.publication-card .caption,
-.card .caption {
-  color: var(--cream);
-  font-size: 0.95rem;
+.founder-info h3 {
+  margin: 0 0 4px;
+  color: var(--plum);
+  font-size: 1.3rem;
 }
 
-.publication-card .tags,
-.card .tags {
-  color: var(--lavender-light);
-  font-size: 0.85rem;
+.founder-role {
+  color: var(--burnt-orange);
+  font-style: italic;
+  margin: 0 0 8px;
+}
+
+.founder-info p {
+  margin: 0 0 10px;
+}
+
+.founder-info a {
+  font-weight: bold;
 }
 
 /* ---------- Buttons ---------- */
